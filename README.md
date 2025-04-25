@@ -7,7 +7,7 @@ A modern and beautifully designed **Hotel Management System** built using **Pyth
 ## 📸 Screenshots
 
 > Replace with your own images  
-![Dashboard Screenshot](dashboard.JPEG)
+![Dashboard](dashboard.JPEG)
 
 ---
 
