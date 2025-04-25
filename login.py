@@ -24,7 +24,7 @@ def login():
 # GUI Setup
 root = tk.Tk()
 root.title("Login - Buddies Hotel Management System")
-root.geometry("400x300")  # Window size for login form
+root.geometry("400x400")  # Window size for login form
 root.configure(bg="#e3f2fd")
 
 # Title
