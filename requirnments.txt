@@ -1,0 +1,10 @@
+		Packages for Hotel Management System
+
+pip install mysql-connector-python  | Used to connect Python to a MySQL database
+pip install tk | Used to create GUI (Graphical User Interface) elements like windows, buttons, and labels
+pip install ttkbootstrap | Enhances the look and feel of Tkinter GUI using Bootstrap-style themes.
+pip install bcrypt | For secure password hashing/encryption.
+pip install os | Allows Python to interact with the operating system (files, directories, paths, etc)
+pip install pandas | Used for data analysis and manipulation in tabular format (like Excel or CSV)
+pip install reportlab | Used for generating PDF documents programmatically
+pip install DateTime | For working with dates and times in Python.
