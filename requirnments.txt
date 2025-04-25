@@ -8,3 +8,4 @@ pip install os | Allows Python to interact with the operating system (files, dir
 pip install pandas | Used for data analysis and manipulation in tabular format (like Excel or CSV)
 pip install reportlab | Used for generating PDF documents programmatically
 pip install DateTime | For working with dates and times in Python.
+pip install pillow | For Images
