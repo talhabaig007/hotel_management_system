@@ -4,8 +4,9 @@
 import tkinter as tk
 from tkinter import ttk, messagebox
 from datetime import datetime
-from database import fetch_query, execute_query
 
+# List to store booking data in RAM
+bookings_data = []
 
 def open_booking_window():
     window = tk.Toplevel()
@@ -46,11 +47,9 @@ def open_booking_window():
     tree.pack(expand=True, fill="both", pady=15)
 
     def load_existing_bookings():
-        rows = fetch_query("SELECT name, room_number, checkin, checkout FROM bookings")
-        for row in rows:
+        for row in bookings_data:
             tree.insert("", "end", values=row)
 
-    # Submit Function
     def book_room():
         name = name_entry.get()
         room = room_entry.get()
@@ -69,26 +68,23 @@ def open_booking_window():
             return
 
         # Check if room is already booked
-        existing = fetch_query("SELECT * FROM bookings WHERE room_number = %s", (room,))
-        if existing:
-            messagebox.showerror("Error", "This room is already assigned to someone else.")
-            return
+        for booking in bookings_data:
+            if booking[1] == room:
+                messagebox.showerror("Error", "This room is already assigned to someone else.")
+                return
 
-        try:
-            execute_query("INSERT INTO bookings (name, room_number, checkin, checkout) VALUES (%s, %s, %s, %s)",
-                          (name, room, checkin, checkout))
-            tree.insert("", "end", values=(name, room, checkin, checkout))
-            messagebox.showinfo("Success", "Room booked successfully")
+        # Save to in-memory list
+        bookings_data.append((name, room, checkin, checkout))
+        tree.insert("", "end", values=(name, room, checkin, checkout))
+        messagebox.showinfo("Success", "Room booked successfully")
 
-            # Clear fields
-            name_entry.delete(0, tk.END)
-            room_entry.delete(0, tk.END)
-            checkin_entry.delete(0, tk.END)
-            checkout_entry.delete(0, tk.END)
-            checkin_entry.insert(0, datetime.today().strftime('%Y-%m-%d'))
-            checkout_entry.insert(0, datetime.today().strftime('%Y-%m-%d'))
-        except Exception as e:
-            messagebox.showerror("Database Error", str(e))
+        # Clear fields
+        name_entry.delete(0, tk.END)
+        room_entry.delete(0, tk.END)
+        checkin_entry.delete(0, tk.END)
+        checkout_entry.delete(0, tk.END)
+        checkin_entry.insert(0, datetime.today().strftime('%Y-%m-%d'))
+        checkout_entry.insert(0, datetime.today().strftime('%Y-%m-%d'))
 
     # Button
     tk.Button(window, text="Book Room", command=book_room, bg="#4caf50", fg="white", width=20).pack(pady=5)
